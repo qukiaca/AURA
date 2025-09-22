@@ -1,13 +1,22 @@
 #include "struct.h"
+#include "program.h"
+#include <windows.h> // это только для винды также как и строки 7 и 8
 
 int main()
 {
-    drone_unit my_drone;
-    droneport dp_station;
-    
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+
+    srand(time(NULL));
+
+    droneport my_droneport ={0};
+    drone_unit my_drone = {0};
+
+    int pg_status = 0;    
     while(1)
     {
-        return 1;
+        start(&pg_status, &my_droneport, &my_drone);
     }
-    return 0;
+    pg_status = 0;
+    return pg_status;
 }

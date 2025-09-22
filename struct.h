@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
+#include <unistd.h>
 
 typedef struct
 {
@@ -15,11 +17,11 @@ typedef struct
 
     enum
     {
-        BATTERY_NORMAL,
-        BATTERY_CHARGING,
-        BATTERY_DISCHARGING,
-        BATTERY_CRITICAL,
-        BATTERY_FAILURE
+        BATTERY_NORMAL, // норма
+        BATTERY_CHARGING, // зарядка
+        BATTERY_DISCHARGING, //разрядка
+        BATTERY_CRITICAL, // критическое состояние, или ошибка
+        BATTERY_FAILURE // пизда аккуму
     }battery_status;
 
 }battery_unit;
@@ -38,10 +40,15 @@ typedef struct
 
     enum 
     {
-        DISARMED, ARMING,
-        ARMED, TAKING_OFF,
-        IN_MISSION, LANDING,
-        ERROR
+        DISARMED,
+        ARMING,
+        ARMED,
+        TAKING_OFF,
+        IN_MISSION, // выполнение задания
+        LANDING,
+        ERROR, // ошибка
+        DOCKING, // на посадке в док-станцию
+        CHARGING // заряжается
     } flight_status; // статус дрона
 }drone_unit;
 
@@ -56,20 +63,36 @@ typedef struct
 
 typedef struct
 {
-
-}server;
+    char ip_adress[16]; // ip адрес
+    int port; // порт
+    bool is_connected; //подключён ли сервер или нет
+    time_t last_heartbeat; // время последнего пинга сервера
+    char last_command[128]; // последняя команда
+    bool command_acknowledged; // выполнил ли дрон эту команду
+    int command_id; // айди команды
+}server_connect;
 
 typedef struct
 {
     char uid[16];
 
     battery_unit dp_battery;
-
     drone_unit drone;
     weather_station weather;
-    // server структура сервера
+    server_connect server;
+
+    bool override_safety; //игнорирование всех ограничей если всё пошло по пизде
 
     char log[256]; // логи
+    time_t last_event_time; // время последней команды
+
+    enum
+    {
+        DP_IDLE, // ожидание команд
+        DP_CHARGING_DRONE, // зарядка дрона
+        DP_SENDING_TELEMETRY, // отправка данных серверу
+        DP_ERROR // ошибка
+    };
 }droneport;
 
 #endif

@@ -1,1 +1,17 @@
 test
+*.o
+*.out
+*.exe
+*.bin
+a.out
+
+build/
+dist/
+
+.vscode/
+.idea/
+*.swp
+*~
+
+*.log
+tmp/

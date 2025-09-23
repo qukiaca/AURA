@@ -11,7 +11,7 @@ typedef struct
 {
     int battery_charge_perc; // процент заряда 0-100%
     float capacity_mah; // ёмкость батареи в Mah
-    float voltage_mv; // вольтаж
+    float voltage_v; // вольтаж
     float current_ma; // ток потребления
     float charge_level_mah; // текущий заряд
 
@@ -29,6 +29,8 @@ typedef struct
 typedef struct
 {
     char uid[16]; // идентификатор дрона
+
+    bool initialized; // временная переменная. когда дополню все инициализации тогда удалю
 
     bool is_connected; // подключён ли 0/1
 
@@ -75,6 +77,8 @@ typedef struct
 typedef struct
 {
     char uid[16];
+
+    bool initialized; // тоже временная переменная
 
     battery_unit dp_battery;
     drone_unit drone;

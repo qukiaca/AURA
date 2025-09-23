@@ -1,14 +1,18 @@
 #include "struct.h"
 #include "program.h"
-//#include <windows.h> // это только для винды также как и строки 7 и 8
+
+#ifdef _WIN32
+#include <windows.h>
+#define SETUP_UTF8() SetConsoleOutputCP(CP_UTF8)
+#else
+#define SETUP_UTF8()
+#endif
 
 int main()
 {
-    //SetConsoleOutputCP(CP_UTF8);
-    //SetConsoleCP(CP_UTF8);
-
+    SETUP_UTF8();
     srand(time(NULL));
-
+    
     droneport my_droneport ={0};
     drone_unit my_drone = {0};
 
@@ -19,11 +23,16 @@ int main()
 
     while(1)
     {
-        if(my_droneport.initialized == false & my_drone.initialized == false)
+        if(!my_droneport.initialized || !my_drone.initialized)
         {
             start(&pg_status, &my_droneport, &my_drone);
         }
+        else
+        {
+            update_droneport(&my_droneport);
+        }
+        sleep(1);
     }
-    pg_status = 0;
+
     return pg_status;
 }

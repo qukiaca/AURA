@@ -11,7 +11,9 @@ typedef struct
 {
     int battery_charge_perc; // процент заряда 0-100%
     float capacity_mah; // ёмкость батареи в Mah
-    float voltage_v; // вольтаж
+    float current_voltage_v; // текущее напряжение
+    float max_voltage_v; // максимальный порог напряжения
+    float min_voltage_v; // минимальный порог напряжения
     float current_ma; // ток потребления
     float charge_level_mah; // текущий заряд
 
@@ -96,7 +98,7 @@ typedef struct
         DP_CHARGING_DRONE, // зарядка дрона
         DP_SENDING_TELEMETRY, // отправка данных серверу
         DP_ERROR // ошибка
-    };
+    }dp_status;
 }droneport;
 
 #endif

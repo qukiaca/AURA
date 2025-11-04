@@ -8,6 +8,16 @@
 #include <unistd.h>
 #include "cJSON.h"
 
+#include "program.h"
+#include "sample.h"
+
+#ifdef _WIN32
+#include <windows.h>
+#define SETUP_UTF8() SetConsoleOutputCP(CP_UTF8)
+#else
+#define SETUP_UTF8()
+#endif
+
 typedef struct
 {
     int battery_charge_perc; // процент заряда 0-100%
@@ -88,7 +98,7 @@ typedef struct
     weather_station weather;
     server_connect server;
 
-    bool override_safety; //игнорирование всех ограничей если всё пошло по пизде
+    bool override_safety; //игнорирование всех ограничей если всё пошло не так
 
     char log[256]; // логи
     time_t last_event_time; // время последней команды

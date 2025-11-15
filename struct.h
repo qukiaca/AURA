@@ -8,7 +8,6 @@
 #include <unistd.h>
 #include "cJSON.h"
 
-#include "program.h"
 #include "sample.h"
 
 #ifdef _WIN32
@@ -23,9 +22,9 @@ typedef struct
     int battery_charge_perc; // процент заряда 0-100%
     float capacity_mah; // ёмкость батареи в Mah
     float current_voltage_v; // текущее напряжение
-    float max_voltage_v; // максимальный порог напряжения
-    float min_voltage_v; // минимальный порог напряжения
-    float current_ma; // ток потребления
+    // float max_voltage_v; // максимальный порог напряжения
+    // float min_voltage_v; // минимальный порог напряжения
+    // float current_ma; // ток потребленияну 
     float charge_level_mah; // текущий заряд
 
     enum
@@ -61,7 +60,7 @@ typedef struct
         TAKING_OFF,
         IN_MISSION, // выполнение задания
         LANDING,
-        ERROR, // ошибка
+        dron_ERROR, // ошибка
         DOCKING, // на посадке в док-станцию
         CHARGING // заряжается
     } flight_status; // статус дрона

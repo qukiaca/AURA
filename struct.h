@@ -6,7 +6,6 @@
 #include <stdbool.h>
 #include <time.h>
 #include <unistd.h>
-#include "cJSON.h"
 
 
 #ifdef _WIN32

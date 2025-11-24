@@ -1,8 +1,13 @@
 #ifndef PROGRAM_H
 #define PROGRAM_H
 
-#include "struct.h"
 #include <string.h>
+
+#include "struct.h"
+#include "random_errors.h"
+#include "sample.h"
+#include "battery.h"
+
 
 int program();
 int start(droneport *dp);

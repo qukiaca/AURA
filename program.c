@@ -1,5 +1,4 @@
 #include "program.h"
-#include "random_errors.h"
 
 int program()
 {
@@ -46,11 +45,11 @@ void update_droneport(droneport *dp)
     //programm_error();
     if(tick % 60 == 0)
     {
-    battery_drainer(&dp->dp_battery);
+        battery_drainer(&dp->dp_battery);
     }
 
     if(tick % 10 == 0)
     {
-        printf("[TICK: %d]\tDronePort status: %u\t|\tBattery: %d%%\n", tick, dp->dp_status, dp->dp_battery.battery_charge_perc);
+        printf("[TICK: %d]\tDronePort status: %u\t|\tCharge: %d%%\t|\tBattery: %.1fmah\n", tick, dp->dp_status, dp->dp_battery.battery_charge_perc, dp->dp_battery.charge_level_mah);
     }
 }

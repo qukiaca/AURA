@@ -8,7 +8,6 @@
 #include <unistd.h>
 #include "cJSON.h"
 
-#include "sample.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -19,6 +18,8 @@
 
 typedef struct
 {
+    bool initialized;
+    
     int battery_charge_perc; // процент заряда 0-100%
     float capacity_mah; // ёмкость батареи в Mah
     float current_voltage_v; // текущее напряжение

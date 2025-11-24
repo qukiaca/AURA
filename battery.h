@@ -3,4 +3,11 @@
 
 #include "struct.h"
 
+#define DP_BATTERY_CAPACITY_MAH 25000.0f
+#define DP_BATTERY_DRAIN_MIN 55.5f
+#define DP_BATTERY_DRAIN_MAX 68.0f
+
+void battery_init(battery_unit *batt);
+void battery_drainer(battery_unit *batt);
+
 #endif

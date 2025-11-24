@@ -1,14 +1,37 @@
 #include "battery.h"
 
-void accumulate(droneport *batt)
+void battery_init(battery_unit *batt)
 {
-    if(!battery_initializations(&batt)) accumulate(&batt);
+    if (batt == NULL)
+    {
+        return;
+    }
+    batt->capacity_mah = DP_BATTERY_CAPACITY_MAH;
+    batt->charge_level_mah = DP_BATTERY_CAPACITY_MAH;
+    batt->battery_charge_perc = 100;
+    batt->battery_status = BATTERY_NORMAL;
+    batt->initialized = true;
+    
 }
 
-static int battery_initializations(droneport *battery)
+void battery_drainer(battery_unit *batt)
 {
-    battery->dp_battery
-    dp->dp_battery.charge_level_mah = 25000;
-    dp->dp_battery.battery_charge_perc = dp->dp_battery.charge_level_mah * 100 / dp->dp_battery.capacity_mah;
-    dp->dp_battery.battery_status = 0;
+    if (batt == NULL) {
+        return;
+    }
+
+    if(!batt->initialized || batt->capacity_mah <= 0)
+    {
+        battery_init(batt);
+    }
+    else
+    {
+        float drain = DP_BATTERY_DRAIN_MIN + ((float)rand() / RAND_MAX) * (DP_BATTERY_DRAIN_MAX - DP_BATTERY_DRAIN_MIN);
+
+        batt->charge_level_mah -= drain;
+        if(batt->charge_level_mah < 0) batt->charge_level_mah = 0;
+
+        batt->battery_charge_perc = (int)(batt->charge_level_mah * 100.0f / batt->capacity_mah);
+    }
+
 }

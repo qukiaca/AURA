@@ -5,6 +5,7 @@ int program()
 {
     droneport my_droneport ={0};
     my_droneport.initialized = false;
+    my_droneport.dp_battery.initialized = false;
 
     while(1)
     {
@@ -28,7 +29,7 @@ int start(droneport *dp)
         printf("UID: %s сгенерирован и активирован\n", dp->uid);
     }
     
-    accumulate(&dp->dp_battery);
+    battery_init(&dp->dp_battery);
 
     dp->dp_status = 0;
     dp->initialized = true;
@@ -42,7 +43,11 @@ void update_droneport(droneport *dp)
     static int tick = 0;
     tick++;
 
-    programm_error();
+    //programm_error();
+    if(tick % 60 == 0)
+    {
+    battery_drainer(&dp->dp_battery);
+    }
 
     if(tick % 10 == 0)
     {

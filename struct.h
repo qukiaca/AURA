@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <time.h>
 #include <unistd.h>
+#include "cJSON.h"
 
 
 #ifdef _WIN32
@@ -66,13 +67,13 @@ typedef struct
     } flight_status; // статус дрона
 }drone_unit;
 
-typedef struct
-{
-    float temperature;
-    float humidity;
-    float wind_speed;
-    bool is_raining;
-}weather_station;
+// typedef struct
+// {
+//     float temperature;
+//     float humidity;
+//     float wind_speed;
+//     bool is_raining;
+// }weather_station;
 
 
 typedef struct
@@ -83,7 +84,17 @@ typedef struct
     time_t last_heartbeat; // время последнего пинга сервера
     char last_command[128]; // последняя команда
     bool command_acknowledged; // выполнил ли дрон эту команду
-    int command_id; // айди команды
+    enum
+    {
+        CMD_NONE,
+        CMD_PHOTO_ZONE_A,
+        CMD_PHOTO_ZONE_B,
+        CMD_PHOTO_ZONE_C,
+        CMD_PHOTO_ZONE_D,
+        CMD_PHOTO_ZONE_E,
+        CMD_PHOTO_ZONE_F,
+        CMD_PHOTO_ZONE_G
+    } command_id; // айди команды
 }server_connect;
 
 typedef struct
@@ -94,7 +105,7 @@ typedef struct
 
     battery_unit dp_battery;
     drone_unit drone;
-    weather_station weather;
+    // weather_station weather;
     server_connect server;
 
     bool override_safety; //игнорирование всех ограничей если всё пошло не так

@@ -7,10 +7,11 @@
 #include "random_errors.h"
 #include "sample.h"
 #include "battery.h"
+#include "server.h"
 
 
 int program();
 int start(droneport *dp);
-void update_droneport(droneport *dp);
+void update_droneport(droneport *dp, server_connect *server);
 
 #endif

@@ -20,7 +20,7 @@ int program()
     while(status_program == 0)
     {
         update_droneport(&my_droneport, &client, &my_dron);
-        usleep(10000);
+        sleep(1);
     }
     printf("\n\n\n\t\tДРОНПОРТ ВЗОРВАЛСЯ!!!\n\n\n");
     return status_program;

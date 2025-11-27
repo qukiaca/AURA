@@ -24,14 +24,12 @@ void battery_drainer(battery_unit *batt)
     {
         battery_init(batt);
     }
-    else
-    {
-        float drain = DP_BATTERY_DRAIN_MIN + ((float)rand() / RAND_MAX) * (DP_BATTERY_DRAIN_MAX - DP_BATTERY_DRAIN_MIN);
+    
+    float drain = DP_BATTERY_DRAIN_MIN + ((float)rand() / RAND_MAX) * (DP_BATTERY_DRAIN_MAX - DP_BATTERY_DRAIN_MIN);
 
-        batt->charge_level_mah -= drain;
-        if(batt->charge_level_mah < 0) batt->charge_level_mah = 0;
+    batt->charge_level_mah -= drain;
+    if(batt->charge_level_mah < 0) batt->charge_level_mah = 0;
 
-        batt->battery_charge_perc = (int)(batt->charge_level_mah * 100.0f / batt->capacity_mah);
-    }
+    batt->battery_charge_perc = (int)(batt->charge_level_mah * 100.0f / batt->capacity_mah);
 
 }

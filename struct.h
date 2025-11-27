@@ -23,9 +23,6 @@ typedef struct
     int battery_charge_perc; // процент заряда 0-100%
     float capacity_mah; // ёмкость батареи в Mah
     float current_voltage_v; // текущее напряжение
-    // float max_voltage_v; // максимальный порог напряжения
-    // float min_voltage_v; // минимальный порог напряжения
-    // float current_ma; // ток потребленияну 
     float charge_level_mah; // текущий заряд
 
     enum
@@ -42,27 +39,14 @@ typedef struct
 typedef struct
 {
     char uid[16]; // идентификатор дрона
-
     bool initialized; // временная переменная. когда дополню все инициализации тогда удалю
-
-    bool is_connected; // подключён ли 0/1
-
-    float latitude; // широта
-    float longitude; //долгота
-    float altitude; // высота
-
     battery_unit drone_battery;
 
     enum 
     {
-        DISARMED,
-        ARMING,
-        ARMED,
-        TAKING_OFF,
         IN_MISSION, // выполнение задания
-        LANDING,
         dron_ERROR, // ошибка
-        DOCKING, // на посадке в док-станцию
+        DOCKED, // на дрон станции
         CHARGING // заряжается
     } flight_status; // статус дрона
 }drone_unit;
@@ -116,6 +100,7 @@ typedef struct
     enum
     {
         DP_IDLE, // ожидание команд
+        DP_MISSION_ISSUED,
         DP_CHARGING_DRONE, // зарядка дрона
         DP_SENDING_TELEMETRY, // отправка данных серверу
         DP_ERROR // ошибка

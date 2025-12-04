@@ -69,10 +69,13 @@ void update_droneport(droneport *dp, server_connect *server, drone_unit *dron)
         printf("Drone status: %d |\tDrone charge: %d%%\n", dron->flight_status, dron->drone_battery.battery_charge_perc);
     }
 
-    if(tick % 30 == 0)
+    if(tick % 15 == 0)
     {
-        int com = server_command(server);
-        printf("Команда от сервера No: %d\n\n", com);
-        comm_process(dp, com, dron);  // Убрал & - передаем указатели, а не двойные указатели
+        if(dron->drone_battery.battery_charge_perc == 100)
+        {
+            int com = server_command(server);
+            printf("Команда от сервера No: %d\n\n", com);
+            comm_process(dp, com, dron);
+        }
     }
 }
